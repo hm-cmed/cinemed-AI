@@ -45,3 +45,9 @@ GitHubリポジトリを唯一の更新元とします。先生がコードを�
 6. GitHubへ反映
 
 教材登録フォームと利用報告フォームは、運営用Googleアカウントで作成した後、サイト内ボタンへURLを設定します。
+
+## 管理画面から更新する
+
+公開サイトの `admin.html` を開き、許可されたGoogleアカウントでログインします。動画を検索して修正すると、変更項目だけがFirestoreの `videoOverrides` コレクションへ保存され、公開画面へ反映されます。Googleフォーム作成後は「フォーム接続」で回答用URLを登録できます。
+
+Firebase ConsoleではAuthenticationのGoogleログインを有効化し、承認済みドメインへ `hm-cmed.github.io` を追加してください。Firestoreの「ルール」タブにはリポジトリの `firestore.rules` を貼り付けて公開します。

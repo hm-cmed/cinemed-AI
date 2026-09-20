@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CineMed-AI 管理画面</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="admin-top"><a href="index.html">← 公開サイトへ</a><strong>CineMed-AI 管理画面</strong><button id="logout" hidden>ログアウト</button></header>
+  <main>
+    <section id="login-panel" class="login-card">
+      <p class="eyebrow">ADMINISTRATION</p><h1>教材情報を管理</h1>
+      <p>許可されたGoogleアカウントでログインしてください。</p>
+      <button id="login" class="primary">Googleでログイン</button>
+      <p id="login-message" class="message" aria-live="polite"></p>
+    </section>
+
+    <section id="workspace" hidden>
+      <div class="workspace-head"><div><p class="eyebrow">VIDEO CATALOG</p><h1>動画を検索して修正</h1></div><span id="account"></span></div>
+      <div class="admin-grid">
+        <aside class="video-picker"><label>動画を検索<input id="admin-search" type="search" placeholder="ID・タイトル・領域"></label><div id="admin-list" class="admin-list"></div></aside>
+        <form id="video-form" class="editor-card">
+          <div class="editor-empty" id="editor-empty">左の一覧から動画を選択してください。</div>
+          <div id="editor-fields" hidden>
+            <div class="editor-title"><div><span id="edit-id"></span><h2 id="edit-heading"></h2></div><span id="save-state"></span></div>
+            <label>日本語タイトル<input name="title" required></label>
+            <label>英語タイトル<input name="en"></label>
+            <div class="field-row"><label>大分類<select name="type"><option>疾患</option><option>手技</option><option>コンピテンシー</option><option>症候</option></select></label><label>診察場所<select name="setting"><option>外来</option><option>救急</option><option>病棟</option><option>その他</option></select></label></div>
+            <div class="field-row"><label>中分類・領域<input name="system"></label><label>言語<select name="contentLanguage"><option value="ja">日本語</option><option value="en">English</option><option value="und">言語未確認</option></select></label></div>
+            <label>学習テーマ（カンマ区切り）<input name="themes"></label>
+            <label>解説<textarea name="summary" rows="4"></textarea></label>
+            <label>生成プロンプト<textarea name="prompt" rows="9"></textarea></label>
+            <button class="primary" type="submit">変更を保存</button>
+          </div>
+        </form>
+      </div>
+
+      <form id="forms-form" class="forms-card">
+        <div><p class="eyebrow">GOOGLE FORMS</p><h2>フォーム接続</h2><p>Googleフォームの「回答用リンク」を登録すると、公開サイトのボタンから開きます。</p></div>
+        <label>教材登録フォームURL<input name="submit" type="url" placeholder="https://forms.gle/..."></label>
+        <label>利用事例報告フォームURL<input name="usage" type="url" placeholder="https://forms.gle/..."></label>
+        <button class="primary" type="submit">フォームURLを保存</button><span id="forms-state" aria-live="polite"></span>
+      </form>
+    </section>
+  </main>
+  <script src="data.js"></script><script src="firebase-config.js"></script><script type="module" src="admin.js"></script>
+</body>
+</html>

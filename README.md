@@ -29,3 +29,7 @@ Looker Studio台帳とタイトルを安全に照合できた動画には正式I
 個別修正は `source/manual-overrides.json`、新規動画は `source/additional-videos.json` に保存します。`node scripts/generate-data.mjs` で公開用データを再生成し、`node scripts/sync-pages.mjs` でGitHub Pages用の `docs` を更新します。
 
 詳しい運用は `UPDATE_GUIDE.md` を参照してください。
+
+## 管理画面
+
+`docs/admin.html` から管理者用Googleアカウントでログインすると、動画情報の修正とGoogleフォームURLの設定ができます。元データはGitHubに保持し、変更項目だけをCloud Firestoreへ保存します。Firestoreのセキュリティルールは `firestore.rules` を使用します。

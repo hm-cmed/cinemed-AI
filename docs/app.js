@@ -5,9 +5,17 @@ const languageDialog=document.querySelector("#language-dialog"),languageFilters=
 let activeVideo=null;
 let activeLanguage=sessionStorage.getItem("cinemed-language")||"all";
 
-[...new Set(videos.map(v=>v.system))].sort().forEach(x=>system.insertAdjacentHTML("beforeend",`<option>${x}</option>`));
-[...new Set(videos.flatMap(v=>v.themes))].sort().forEach(x=>theme.insertAdjacentHTML("beforeend",`<option>${x}</option>`));
 const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+
+function refreshFilterOptions(){
+  const selectedSystem=system.value,selectedTheme=theme.value;
+  system.innerHTML='<option value="">すべて</option>';
+  theme.innerHTML='<option value="">すべて</option>';
+  [...new Set(videos.map(v=>v.system).filter(Boolean))].sort().forEach(x=>system.insertAdjacentHTML("beforeend",`<option>${escapeHtml(x)}</option>`));
+  [...new Set(videos.flatMap(v=>v.themes||[]).filter(Boolean))].sort().forEach(x=>theme.insertAdjacentHTML("beforeend",`<option>${escapeHtml(x)}</option>`));
+  if([...system.options].some(x=>x.value===selectedSystem))system.value=selectedSystem;
+  if([...theme.options].some(x=>x.value===selectedTheme))theme.value=selectedTheme;
+}
 
 function render(){
   const q=search.value.trim().toLowerCase();
@@ -56,12 +64,14 @@ const panels={
  submit:{kicker:"CONTRIBUTE",title:"教材を登録する",text:"制作者情報、動画共有リンク、生成プロンプト、教育目的、権利確認を受け付け、運営で審査してから掲載します。",fields:["動画タイトル","閲覧可能な動画共有リンク","生成プロンプト","学習目標・活用場面","権利・個人情報の確認"]},
  usage:{kicker:"USE REPORT",title:"利用事例を報告する",text:"授業や研修での利用方法を共有してください。今後の改善と利用実績の可視化に活用します。",fields:["動画ID（自動入力）","参加人数","授業・研修での使用方法","学習者の反応","改善案"]}
 };
-function openInfo(type){const p=panels[type];document.querySelector("#info-kicker").textContent=p.kicker;document.querySelector("#info-title").textContent=p.title;document.querySelector("#info-text").textContent=p.text;document.querySelector("#info-fields").innerHTML=p.fields.map((x,i)=>`<div class="mock-field">${i+1}. ${x}${type==="usage"&&i===0&&activeVideo?`：${activeVideo.id}`:""}</div>`).join("");info.showModal()}
+function openInfo(type){const url=window.CINEMED_FORM_URLS?.[type];if(url){window.open(url,"_blank","noopener");return}const p=panels[type];document.querySelector("#info-kicker").textContent=p.kicker;document.querySelector("#info-title").textContent=p.title;document.querySelector("#info-text").textContent=p.text;document.querySelector("#info-fields").innerHTML=p.fields.map((x,i)=>`<div class="mock-field">${i+1}. ${x}${type==="usage"&&i===0&&activeVideo?`：${activeVideo.id}`:""}</div>`).join("");info.showModal()}
 document.querySelectorAll("[data-open-panel]").forEach(b=>b.addEventListener("click",()=>{if(detail.open)closeDetail();openInfo(b.dataset.openPanel)}));
 document.querySelectorAll("[data-info-close]").forEach(b=>b.addEventListener("click",()=>info.close()));
 info.addEventListener("click",e=>{if(e.target===info)info.close()});
 languageChoices.forEach(button=>button.addEventListener("click",()=>setLanguage(button.dataset.languageChoice)));
 languageFilters.forEach(button=>button.addEventListener("click",()=>setLanguage(button.dataset.languageFilter)));
 languageDialog.addEventListener("cancel",event=>{event.preventDefault();setLanguage("all")});
+window.CINEMED_REFRESH=()=>{refreshFilterOptions();render()};
+refreshFilterOptions();
 setLanguage(activeLanguage,{remember:false,close:false});
 if(!sessionStorage.getItem("cinemed-language"))languageDialog.showModal();
