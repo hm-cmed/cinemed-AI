@@ -33,3 +33,7 @@ Looker Studio台帳とタイトルを安全に照合できた動画には正式I
 ## 管理画面
 
 `docs/admin.html` から管理者用Googleアカウントでログインすると、動画情報の修正とGoogleフォームURLの設定ができます。元データはGitHubに保持し、変更項目だけをCloud Firestoreへ保存します。Firestoreのセキュリティルールは `firestore.rules` を使用します。
+
+## Googleフォーム
+
+`scripts/create-cinemed-forms.gs` をGoogle Apps Scriptで1回実行すると、「教材を登録する」「利用事例を報告する」の2フォーム、回答スプレッドシート、教材審査台帳、利用事例台帳をまとめて作成できます。実行方法は `GAS_FORMS_SETUP.md` を参照してください。
