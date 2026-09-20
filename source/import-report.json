@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-09-20T13:22:49.028Z",
+  "sourceEmbeds": 595,
+  "uniqueVideos": 585,
+  "duplicateEmbedsRemoved": 10,
+  "catalogRows": 560,
+  "matched": 161,
+  "unmatched": 424,
+  "byType": {
+    "疾患": 304,
+    "手技": 133,
+    "コンピテンシー": 109,
+    "症候": 39
+  },
+  "bySetting": {
+    "外来": 84,
+    "救急": 80,
+    "病棟": 23,
+    "その他": 398
+  },
+  "byLanguage": {
+    "ja": 524,
+    "en": 57,
+    "und": 4
+  }
+}
