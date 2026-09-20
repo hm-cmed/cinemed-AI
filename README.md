@@ -37,3 +37,16 @@ Looker Studio台帳とタイトルを安全に照合できた動画には正式I
 ## Googleフォーム
 
 `scripts/create-cinemed-forms.gs` をGoogle Apps Scriptで1回実行すると、「教材を登録する」「利用事例を報告する」の2フォーム、回答スプレッドシート、教材審査台帳、利用事例台帳をまとめて作成できます。実行方法は `GAS_FORMS_SETUP.md` を参照してください。
+
+## 動画生成AIワークショップ支援ツール
+
+`docs/workshop.html` では、従来Gemini Gemsとして提供していた6つの支援ツールを、APIキー不要の静的ページとして利用できます。
+
+- PLAN：Workshop Designer
+- CREATE：Prompt Coach
+- IMPROVE：Prompt Reviewer
+- CHECK：Medical Checker
+- RELEASE：Ethics & Safety Checker
+- HELP：Troubleshooter
+
+完全版システムプロンプトは `source/workshop-gems` に保存しています。添付のGemエクスポートHTMLから再抽出する場合は、`node scripts/extract-workshop-gems.mjs /path/to/gemini_gems_data.html` を実行し、その後 `node scripts/sync-pages.mjs` で公開ファイルへ反映します。

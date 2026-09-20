@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="医療人育成のための生成AI動画ワークショップを支援する6つのガイド付きツール">
+  <title>動画生成AIワークショップ支援ツール｜CineMed-AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="workshop.css">
+</head>
+<body class="workshop-page">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">▶</span><span>CineMed-AI</span></a>
+    <nav aria-label="ワークショップ支援ツールのナビゲーション">
+      <a href="#workflow">ツール一覧</a>
+      <a href="#guide">使い方</a>
+      <a href="index.html">動画ライブラリへ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="workshop-hero">
+      <div>
+        <p class="eyebrow">VIDEO GENAI WORKSHOP TOOLKIT</p>
+        <h1>設計から公開まで、<br>6つのガイドで進める。</h1>
+        <p class="lead">医療人育成のための動画生成AIワークショップで使用してきたGemの設計を、GitHub Pages上で継続利用できる形に保存しました。</p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#workflow">ツールを選ぶ</a>
+          <a class="secondary-link" href="#guide">使い方を確認</a>
+        </div>
+      </div>
+      <aside class="static-note">
+        <strong>無料・APIキー不要</strong>
+        <p>このページは入力内容から依頼文を組み立てます。AIへの送信は行わず、入力内容をサーバーへ保存しません。</p>
+      </aside>
+    </section>
+
+    <section id="workflow" class="workflow" aria-labelledby="workflow-title">
+      <div class="section-heading">
+        <p class="eyebrow">PLAN → CREATE → IMPROVE → CHECK → RELEASE</p>
+        <h2 id="workflow-title">目的に合うツールを選択</h2>
+        <p>作業段階を選ぶと、必要事項を整理した依頼文を作成できます。</p>
+      </div>
+      <div id="tool-cards" class="workshop-cards"></div>
+    </section>
+
+    <section id="builder" class="builder" hidden aria-labelledby="builder-title">
+      <div class="builder-heading">
+        <div>
+          <p id="builder-stage" class="eyebrow"></p>
+          <h2 id="builder-title"></h2>
+          <p id="builder-description"></p>
+        </div>
+        <div class="builder-nav-actions">
+          <a id="legacy-gem" class="quiet-dark" target="_blank" rel="noopener">現在のGemを開く ↗</a>
+          <button id="change-tool" class="quiet-dark" type="button">別のツールを選ぶ</button>
+        </div>
+      </div>
+
+      <div class="builder-layout">
+        <form id="tool-form" class="tool-form">
+          <div id="tool-fields"></div>
+          <div class="privacy-reminder">
+            <strong>入力前の確認</strong>
+            <span>患者・学習者・職員を特定できる情報、未公開の症例情報、機密資料は入力しないでください。</span>
+          </div>
+        </form>
+
+        <aside class="request-panel">
+          <div class="request-heading">
+            <div><span>READY TO COPY</span><h3>作成した依頼文</h3></div>
+            <span id="completion-status" class="completion-status"></span>
+          </div>
+          <pre id="request-output" tabindex="0"></pre>
+          <div class="request-actions">
+            <button id="copy-request" class="primary-button" type="button">依頼文をコピー</button>
+            <button id="copy-package" type="button">システムプロンプトと一緒にコピー</button>
+            <button id="download-package" type="button">テキストで保存</button>
+          </div>
+          <p class="usage-note">コピーした内容を、利用する生成AIの新しい会話へ貼り付けてください。完全な再現を保証するものではなく、出力は人が確認する必要があります。</p>
+        </aside>
+      </div>
+
+      <div class="tool-archive">
+        <details>
+          <summary>完全版システムプロンプトを表示</summary>
+          <div class="archive-actions"><button id="copy-system" type="button">プロンプトのみコピー</button><a id="download-system" download>Markdownを保存</a></div>
+          <pre id="system-prompt"></pre>
+        </details>
+        <section aria-labelledby="sources-title">
+          <h3 id="sources-title">Gemで使用していた参照資料</h3>
+          <p>元Gemに登録されていたGoogle Drive資料です。閲覧権限や公開範囲はリンク先の設定に従います。</p>
+          <ul id="source-list"></ul>
+        </section>
+      </div>
+    </section>
+
+    <section id="guide" class="workshop-guide">
+      <div>
+        <p class="eyebrow">HOW TO USE</p>
+        <h2>このページの使い方</h2>
+      </div>
+      <ol>
+        <li><strong>作業段階を選ぶ</strong><span>設計、作成、改善、医学的確認、安全性確認、トラブル対応から選択します。</span></li>
+        <li><strong>分かる範囲で入力する</strong><span>未入力項目は「未入力」として依頼文に残り、AIが確認質問を行える形にします。</span></li>
+        <li><strong>依頼文をコピーする</strong><span>通常は「システムプロンプトと一緒にコピー」を選び、利用する生成AIへ貼り付けます。</span></li>
+        <li><strong>人が最終確認する</strong><span>医学・教育・倫理・権利・所属機関の規則について、AIの回答を承認として扱わないでください。</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>CineMed-AI</strong><span>動画生成AIワークショップ支援ツール</span></div>
+    <div class="footer-actions"><a class="footer-link" href="index.html">動画ライブラリへ戻る</a></div>
+    <small>元Gemのシステムプロンプトを保存し、APIキー不要の静的ツールとして提供しています。</small>
+  </footer>
+
+  <script src="workshop.js"></script>
+</body>
+</html>
