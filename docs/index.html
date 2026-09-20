@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="医療者教育用の生成AI動画とプロンプトを検索・閲覧できるCineMed-AI試作ライブラリ">
+  <title>CineMed-AI｜生成AI医学教育動画ライブラリ</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23064360'/%3E%3Cpath d='M18 18h28v28H18z' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Cpath d='M28 25l13 7-13 7z' fill='%2339d6bf'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <dialog id="language-dialog" class="language-dialog" aria-labelledby="language-title">
+    <div class="language-entry">
+      <p class="eyebrow">SELECT LANGUAGE</p>
+      <h2 id="language-title">表示する動画の言語を選択</h2>
+      <p>Choose the language of the videos.</p>
+      <div class="language-entry-actions">
+        <button data-language-choice="ja"><strong>日本語</strong><span>Japanese videos</span></button>
+        <button data-language-choice="en"><strong>English</strong><span>English videos</span></button>
+      </div>
+      <button class="language-all" data-language-choice="all">すべて表示 / Show all</button>
+      <small>言語を確認できない動画は、日本語・英語の両方の一覧に表示します。</small>
+    </div>
+  </dialog>
+
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">▶</span><span>CineMed-AI</span></a>
+    <nav aria-label="主要ナビゲーション">
+      <a href="#library">動画を探す</a>
+      <a href="#about">運営・利用ガイド</a>
+      <button class="nav-action" data-open-panel="submit">教材を登録</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" id="library">
+      <div>
+        <p class="eyebrow">GENERATIVE AI × MEDICAL EDUCATION</p>
+        <h1>見つける。確かめる。<br>授業で使う。</h1>
+        <p class="lead">生成AIで制作した医療者教育動画と、そのプロンプトを教員が検索・活用できるオープンライブラリです。</p>
+      </div>
+      <div class="stat" aria-label="収録状況"><strong>585</strong><span>収録動画</span><small>Google Sites全動画を統合</small></div>
+    </section>
+
+    <section class="search-panel" aria-label="動画検索">
+      <div class="language-switch" role="group" aria-label="表示する動画の言語">
+        <span>動画言語 / Language</span>
+        <button data-language-filter="ja">日本語</button>
+        <button data-language-filter="en">English</button>
+        <button data-language-filter="all">すべて / All</button>
+      </div>
+      <label class="searchbox">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="動画名、ID、領域、解説、プロンプトから検索" autocomplete="off">
+      </label>
+      <div class="filters">
+        <label>診察場所<select id="setting-filter"><option value="">すべて</option><option>外来</option><option>救急</option><option>病棟</option><option>その他</option></select></label>
+        <label>中分類・領域<select id="system-filter"><option value="">すべて</option></select></label>
+        <label>大分類<select id="type-filter"><option value="">すべて</option><option>疾患</option><option>手技</option><option>コンピテンシー</option><option>症候</option></select></label>
+        <label>学習テーマ<select id="theme-filter"><option value="">すべて</option></select></label>
+        <button id="reset" class="quiet">条件をクリア</button>
+      </div>
+    </section>
+
+    <div class="result-line"><span id="result-count">585本</span><span>Looker台帳と元Google Sitesを照合して表示</span></div>
+    <section id="cards" class="cards" aria-live="polite"></section>
+    <section id="empty" class="empty" hidden><strong>該当する動画がありません</strong><span>検索語または絞り込み条件を変更してください。</span></section>
+
+    <section class="support-band" aria-label="研究助成情報">
+      <span>SUPPORTED BY</span>
+      <p>本プロジェクトは、<strong>公益財団法人 医学教育振興財団（MEFJ）による「医学教育研究助成」（2025年度・2026年度）</strong>の採択を受け、その支援のもとで実施・運営されています。</p>
+    </section>
+
+    <section id="about" class="about">
+      <div>
+        <p class="eyebrow">GUIDELINES & GOVERNANCE</p>
+        <h2>教育目的と<br>利用にあたって。</h2>
+      </div>
+      <div class="about-copy">
+        <article><h3>開発中（Beta版）</h3><p>本サイトのコンテンツは逐次更新・ブラッシュアップされています。掲載動画には、医学的に不正確な描写や現実とは異なる挙動（ハルシネーション）が含まれる場合があります。</p></article>
+        <article><h3>本サイトの教育的意図</h3><p>正しい知識の提示だけでなく、臨床現場の空気感や身体診察・問診場面を共有し、不正確な描写を「間違い探し」の教材として利用することを想定しています。</p></article>
+        <article><h3>プロンプト公開と共創</h3><p>各動画の生成プロンプトを公開し、改善案やより精緻な動画を募集します。投稿教材は運営側が医学・教育・倫理・権利の観点から確認し、掲載可否を判断します。</p></article>
+        <article><h3>ライセンス</h3><p>原則としてクリエイティブ・コモンズ「表示－非営利（CC BY-NC）」を適用します。クレジットを明記した教育目的での利用・再配布・改変を認め、営利利用は個別相談とします。</p></article>
+        <article><h3>免責事項</h3><p>本コンテンツは学習補助を目的としており、実際の診療判断には使用できません。利用時には最新の診療ガイドラインと専門家の判断を確認してください。利用により生じた不利益・損害について提供者は責任を負いません。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>CineMed-AI</strong><span>生成AI医学教育動画ライブラリ</span></div>
+    <div class="footer-actions">
+      <button data-open-panel="submit">教材を登録する</button>
+      <button data-open-panel="usage">利用事例を報告する</button>
+    </div>
+    <small>Google Sitesに掲載されていた全動画を統合しています。掲載情報は教育目的で提供されます。</small>
+  </footer>
+
+  <dialog id="detail-dialog" class="detail-dialog">
+    <div class="dialog-top"><span id="detail-id"></span><button class="icon-btn" data-close aria-label="閉じる">×</button></div>
+    <div class="video-wrap"><iframe id="detail-video" title="教材動画" allow="autoplay" allowfullscreen></iframe></div>
+    <div class="detail-content">
+      <div class="detail-heading"><div><h2 id="detail-title"></h2><p id="detail-en"></p></div><div id="detail-tags" class="tags"></div></div>
+      <p id="detail-summary" class="detail-summary"></p>
+      <section class="prompt-block"><div><h3>生成プロンプト</h3><button id="copy-prompt">コピー</button></div><pre id="detail-prompt"></pre></section>
+      <div class="detail-actions">
+        <a id="drive-link" target="_blank" rel="noopener">Google Driveで開く ↗</a>
+        <button data-open-panel="usage">この動画の利用を報告</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="info-dialog" class="info-dialog">
+    <div class="dialog-top"><span id="info-kicker">参加</span><button class="icon-btn" data-info-close aria-label="閉じる">×</button></div>
+    <div class="info-content">
+      <h2 id="info-title"></h2>
+      <p id="info-text"></p>
+      <div id="info-fields" class="mock-fields"></div>
+      <p class="prototype-note">送信機能は未接続です。運営用Googleフォームの準備後に、審査用フォームと利用報告フォームを接続します。</p>
+      <button class="primary" data-info-close>確認しました</button>
+    </div>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
